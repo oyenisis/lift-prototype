@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.CLI", "Lift.CLI\Lift.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.ErrorHandling", "Lift.ErrorHandling\Lift.ErrorHandling.csproj", "{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.Lexing.Tests", "Lift.Lexing.Tests\Lift.Lexing.Tests.csproj", "{84866E0B-E444-41E0-8CBD-33E2B22B16C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84866E0B-E444-41E0-8CBD-33E2B22B16C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84866E0B-E444-41E0-8CBD-33E2B22B16C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84866E0B-E444-41E0-8CBD-33E2B22B16C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84866E0B-E444-41E0-8CBD-33E2B22B16C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

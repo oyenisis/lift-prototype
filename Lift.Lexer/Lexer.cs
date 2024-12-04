@@ -98,7 +98,33 @@ namespace Lift.Lexing
 
         private void String()
         {
-            while (Advance() != '"') ;
+            while (Advance() != '"')
+            {
+                if (AtEnd)
+                {
+                    Coil.AddError(new LiftMessage((ushort)LexerErrorCodes.UnterminatedString, $"Unterminated string on line {_line}."));
+                    break;
+                }
+
+                if (Previous == '\n')
+                {
+                    Coil.AddError(new LiftMessage((ushort)LexerErrorCodes.NewlineInString, $"Multiline string on line {_line}."));
+                }
+
+                if (Previous == '\\')
+                {
+                    switch (Advance())
+                    {
+                        case '\n':
+                        case '"':
+                        case '\\':
+                            break;
+                        default:
+                            Coil.AddError(new LiftMessage((ushort)LexerErrorCodes.InvalidEscapeCharacter, $"Invalid escape character on line {_line}."));
+                            break;
+                    }
+                }
+            }
 
             _tokens.Add(new Token(TokenType.String, _line, _text[(_start + 1)..(_current - 1)]));
         }
@@ -107,13 +133,13 @@ namespace Lift.Lexing
         {
             bool isReal = false;
 
-            while (char.IsAsciiDigit(Peek)) Advance();
+            while (!AtEnd && char.IsAsciiDigit(Peek)) Advance();
 
-            if (Peek == '.')
+            if (!AtEnd && Peek == '.')
             {
                 isReal = true;
                 Advance();
-                while (char.IsAsciiDigit(Peek)) Advance();
+                while (!AtEnd && char.IsAsciiDigit(Peek)) Advance();
             }
 
             Token(isReal ? TokenType.Real : TokenType.Integer);
@@ -121,7 +147,7 @@ namespace Lift.Lexing
 
         private void Identifier()
         {
-            while (IsIdentifier(Peek)) Advance();
+            while (!AtEnd && IsIdentifier(Peek)) Advance();
 
             string identifier = _text[_start.._current];
 
