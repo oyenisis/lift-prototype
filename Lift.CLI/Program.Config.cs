@@ -13,10 +13,12 @@
             ],
 
             namedArgs = [
-                "environment"
+                "environment",
+                "logWarnings"
             ],
             namedArgTypes = [
-                typeof(string)
+                typeof(string),
+                typeof(bool)
             ],
 
             execute = RunSingleFile

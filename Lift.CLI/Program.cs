@@ -1,4 +1,8 @@
-﻿namespace LiftCLI
+﻿using Lift.ErrorHandling;
+using Lift.Lexing;
+using System.Text;
+
+namespace LiftCLI
 {
     public static partial class Program
     {
@@ -8,6 +12,7 @@
             Shutdown,
             ArgumentCollection,
             ArgumentTraversal,
+            Lexing,
         }
 
         public static ExecutionPhase Phase => _phase;
@@ -16,6 +21,13 @@
         private static void Main(string[] args)
         {
             Console.CancelKeyPress += Shutdown;
+
+            Stream stdout = Console.OpenStandardOutput();
+            StreamWriter con = new(stdout, Encoding.ASCII)
+            {
+                AutoFlush = true
+            };
+            Console.SetOut(con);
 
             _phase = ExecutionPhase.ArgumentCollection;
 
@@ -31,7 +43,15 @@
 
             int lastArg = 0;
 
-            CLArgTraverser.Traverse(ROOT_MODE, args, ref lastArg);
+            try
+            {
+                CLArgTraverser.Traverse(ROOT_MODE, args, ref lastArg);
+            }
+            catch (CLArgTraverser.ArgumentParseException e)
+            {
+                Error(e.Message);
+                Shutdown();
+            }
         }
 
         private static void Shutdown()
@@ -56,6 +76,13 @@
             Shutdown();
         }
 
+        public static void Error(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         private static void RunSingleFile(object[] positionalArgs, Dictionary<string, object> namedParams)
         {
             string path = (string)positionalArgs[0];
@@ -65,15 +92,26 @@
                 Shutdown();
             }
 
-            string content = File.ReadAllText(path);
-            Console.WriteLine(content);
-        }
+            bool logWarns = namedParams.TryGetValue("logWarnings", out object? value) && (bool)value;
 
-        public static void Error(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(message);
-            Console.ForegroundColor = ConsoleColor.White;
+            string content = File.ReadAllText(path);
+
+            _phase = ExecutionPhase.Lexing;
+
+            Lexer lexer = new(content);
+            List<Token> tokens = lexer.Lex();
+
+            if (lexer.Coil.HasErrors() || (logWarns && lexer.Coil.HasWarnings()))
+            {
+                Console.WriteLine("\nError Log");
+                Console.WriteLine(ErrorCoilUnwinder.Unwind(lexer.Coil, logWarns, "L"));
+                Shutdown();
+            }
+
+            foreach (Token token in tokens)
+            {
+                Console.WriteLine($"{token.Type} | {token.Lexeme} | {token.Line}");
+            }
         }
     }
 }

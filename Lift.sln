@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftCLI", "LiftCLI\LiftCLI.csproj", "{C97E0753-494D-48C0-AF71-50F65733800B}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Lift.Examples", "Examples\Lift.Examples.shproj", "{171D2031-E7CB-4127-BA28-94D19C880AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftInterpreter", "LiftInterpreter\LiftInterpreter.csproj", "{C17131C8-D347-4743-A222-3F69AEB02C18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.Lexing", "Lift.Lexer\Lift.Lexing.csproj", "{61978E19-B605-4939-B0AA-33C83D6D29EA}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Examples", "Examples\Examples.shproj", "{171D2031-E7CB-4127-BA28-94D19C880AFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.Interpreter", "Lift.Interpreter\Lift.Interpreter.csproj", "{C5BEADC7-EE1E-4E75-A1C3-E0F577EECC69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.CLI", "Lift.CLI\Lift.CLI.csproj", "{F0D2D271-7D48-45EE-A64E-377D6490177F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lift.ErrorHandling", "Lift.ErrorHandling\Lift.ErrorHandling.csproj", "{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,14 +19,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C97E0753-494D-48C0-AF71-50F65733800B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C97E0753-494D-48C0-AF71-50F65733800B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C97E0753-494D-48C0-AF71-50F65733800B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C97E0753-494D-48C0-AF71-50F65733800B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C17131C8-D347-4743-A222-3F69AEB02C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C17131C8-D347-4743-A222-3F69AEB02C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C17131C8-D347-4743-A222-3F69AEB02C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C17131C8-D347-4743-A222-3F69AEB02C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61978E19-B605-4939-B0AA-33C83D6D29EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61978E19-B605-4939-B0AA-33C83D6D29EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61978E19-B605-4939-B0AA-33C83D6D29EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61978E19-B605-4939-B0AA-33C83D6D29EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BEADC7-EE1E-4E75-A1C3-E0F577EECC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BEADC7-EE1E-4E75-A1C3-E0F577EECC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BEADC7-EE1E-4E75-A1C3-E0F577EECC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BEADC7-EE1E-4E75-A1C3-E0F577EECC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0D2D271-7D48-45EE-A64E-377D6490177F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0D2D271-7D48-45EE-A64E-377D6490177F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0D2D271-7D48-45EE-A64E-377D6490177F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0D2D271-7D48-45EE-A64E-377D6490177F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BFC53C6-0EDE-472A-9AB9-229BBFF69905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

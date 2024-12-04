@@ -16,6 +16,8 @@
             public required Action<object[], Dictionary<string, object>>? execute;
         }
 
+        public sealed class ArgumentParseException(string message) : Exception(message);
+
         public static void Traverse(TraverserMode mode, string[] args, ref int arg)
         {
             int subcommandIndex = arg;
@@ -41,6 +43,24 @@
 
             Dictionary<string, object> namedArgs = [];
 
+            for (; arg < args.Length; arg++)
+            {
+                if (!args[arg].StartsWith("--")) throw new ArgumentParseException($"Parameter name has to start with '--'. Got {args[arg]} instead.");
+
+                string name = args[arg][2..];
+                int index = mode.namedArgs.ToList().FindIndex((s) => s == name);
+
+                if (index == -1) throw new ArgumentParseException($"Unknown named parameter '{name}'.");
+
+                if (mode.namedArgTypes[index] == typeof(bool))
+                {
+                    namedArgs.Add(name, true);
+                    continue;
+                }
+
+                namedArgs.Add(name, ParseArg(args[arg++], mode.namedArgTypes[index]));
+            }
+
             mode.execute?.Invoke(posArgs, namedArgs);
         }
 
@@ -52,7 +72,7 @@
                 if (input == "true") return true;
                 if (input == "false") return false;
 
-                throw new DataMisalignedException($"{input} has to be 'true' or 'false' to match bool argument type.");
+                throw new ArgumentParseException($"{input} has to be 'true' or 'false' to match bool argument type.");
             }
 
             throw new NotImplementedException($"Type {expectedType} is not implemented as a supported argument type.");
