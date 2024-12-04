@@ -1,0 +1,3 @@
+﻿ímport { print } from "lift.io";
+
+print("Hello, World!");

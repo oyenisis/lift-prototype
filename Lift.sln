@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftCLI", "LiftCLI\LiftCLI.csproj", "{C97E0753-494D-48C0-AF71-50F65733800B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftInterpreter", "LiftInterpreter\LiftInterpreter.csproj", "{C17131C8-D347-4743-A222-3F69AEB02C18}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Examples", "Examples\Examples.shproj", "{171D2031-E7CB-4127-BA28-94D19C880AFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C97E0753-494D-48C0-AF71-50F65733800B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97E0753-494D-48C0-AF71-50F65733800B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97E0753-494D-48C0-AF71-50F65733800B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97E0753-494D-48C0-AF71-50F65733800B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C17131C8-D347-4743-A222-3F69AEB02C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C17131C8-D347-4743-A222-3F69AEB02C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C17131C8-D347-4743-A222-3F69AEB02C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C17131C8-D347-4743-A222-3F69AEB02C18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4532606C-3D1B-4EEA-956F-1E339D57DD53}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Examples\Examples.projitems*{171d2031-e7cb-4127-ba28-94d19c880afa}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal
