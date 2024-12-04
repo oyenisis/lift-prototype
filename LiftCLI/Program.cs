@@ -34,10 +34,8 @@
             CLArgTraverser.Traverse(ROOT_MODE, args, ref lastArg);
         }
 
-        private static void Shutdown(object? _, ConsoleCancelEventArgs e)
+        private static void Shutdown()
         {
-            e.Cancel = false;
-
             ExecutionPhase exitPhase = _phase;
 
             _phase = ExecutionPhase.Shutdown;
@@ -51,9 +49,31 @@
             Environment.Exit(0);
         }
 
+        private static void Shutdown(object? _, ConsoleCancelEventArgs e)
+        {
+            e.Cancel = false;
+
+            Shutdown();
+        }
+
         private static void RunSingleFile(object[] positionalArgs, Dictionary<string, object> namedParams)
         {
-            Console.WriteLine(positionalArgs[0]);
+            string path = (string)positionalArgs[0];
+            if (!File.Exists(path))
+            {
+                Error($"File '{path}' does not exist.");
+                Shutdown();
+            }
+
+            string content = File.ReadAllText(path);
+            Console.WriteLine(content);
+        }
+
+        public static void Error(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

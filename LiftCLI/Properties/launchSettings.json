@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LiftCLI": {
+      "commandName": "Project",
+      "workingDirectory": "F:\\code\\prototypes\\Lift\\Examples"
+    }
+  }
+}
