@@ -1,5 +1,6 @@
 ﻿using Lift.ErrorHandling;
 using Lift.Lexing;
+using Lift.Parser;
 using System.Text;
 
 namespace LiftCLI
@@ -13,6 +14,7 @@ namespace LiftCLI
             ArgumentCollection,
             ArgumentTraversal,
             Lexing,
+            Parsing,
         }
 
         public static ExecutionPhase Phase => _phase;
@@ -108,9 +110,16 @@ namespace LiftCLI
                 Shutdown();
             }
 
-            foreach (Token token in tokens)
+            _phase = ExecutionPhase.Parsing;
+
+            Parser parser = new(tokens);
+            List<Statement> program = parser.Parse();
+
+            if (parser.Coil.HasErrors() || (logWarns && parser.Coil.HasWarnings()))
             {
-                Console.WriteLine($"{token.Type} | {token.Lexeme} | {token.Line}");
+                Console.WriteLine("\nError Log");
+                Console.WriteLine(ErrorCoilUnwinder.Unwind(parser.Coil, logWarns, "P"));
+                Shutdown();
             }
         }
     }

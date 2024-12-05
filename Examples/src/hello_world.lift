@@ -1,5 +1,3 @@
-﻿import { print } from "lift.io";
+﻿import print from "lift.io"
 
-ä
-
-print("Hello, World!");
+print("Hello, World!")

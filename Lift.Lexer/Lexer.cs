@@ -2,12 +2,14 @@
 
 namespace Lift.Lexing
 {
-    public class Lexer(string text)
+    public sealed class Lexer(string text)
     {
         private static readonly Dictionary<string, TokenType> KEYWORDS = new()
         {
             {"import", TokenType.Import},
-            {"from", TokenType.From}
+            {"from", TokenType.From},
+            {"true", TokenType.True},
+            {"false", TokenType.False},
         };
 
         public ErrorCoil Coil { get; } = new("Lexer");
@@ -58,6 +60,77 @@ namespace Lift.Lexing
                     case '}':
                         Token(TokenType.RBrace);
                         break;
+
+                    case '+':
+                        Token(TokenType.Plus);
+                        break;
+                    case '-':
+                        Token(TokenType.Minus);
+                        break;
+                    case '*':
+                        Token(TokenType.Star);
+                        break;
+                    case '/':
+                        if (Peek == '/')
+                        {
+                            while (!AtEnd && Previous != '\n') Advance();
+                            break;
+                        }
+                        if (Peek == '*')
+                        {
+                            while (Previous != '*' || Peek != '/')
+                            {
+                                if (AtEnd)
+                                {
+                                    Coil.AddWarning(new LiftMessage((ushort)LexerWarnCodes.UnterminatedMultilineComment, $"Unterminated multi-line comment on line {_line}"));
+                                    break;
+                                }
+
+                                Advance();
+                            }
+                            Advance();
+                            break;
+                        }
+                        Token(TokenType.Slash);
+                        break;
+
+                    case '=':
+                        if (Peek == '=')
+                        {
+                            Advance();
+                            Token(TokenType.EqEq);
+                            break;
+                        }
+                        Token(TokenType.Eq);
+                        break;
+                    case '!':
+                        if (Peek == '=')
+                        {
+                            Advance();
+                            Token(TokenType.BangEq);
+                            break;
+                        }
+                        Token(TokenType.Bang);
+                        break;
+                    case '<':
+                        if (Peek == '=')
+                        {
+                            Advance();
+                            Token(TokenType.LessEq);
+                            break;
+                        }
+                        Token(TokenType.Less);
+                        break;
+                    case '>':
+                        if (Peek == '=')
+                        {
+                            Advance();
+                            Token(TokenType.GreaterEq);
+                            break;
+                        }
+                        Token(TokenType.Greater);
+                        break;
+
                     case ':':
                         Token(TokenType.Colon);
                         break;
@@ -70,9 +143,11 @@ namespace Lift.Lexing
                     case ',':
                         Token(TokenType.Comma);
                         break;
+
                     case '"':
                         String();
                         break;
+
                     default:
                         {
                             if (char.IsAsciiDigit(Previous))
